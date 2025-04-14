@@ -25,6 +25,15 @@ class Player(CircleShape):
     # rotate
     def rotate(self, dt):
         self.dt = dt
-        return self.rotation + PLAYER_TURN_SPEED * self.dt
+        self.rotation + PLAYER_TURN_SPEED * self.dt
     
-   
+    def update(self, dt):
+        keys = pygame.key.get_pressed()
+        
+        if keys[pygame.K_a]:
+            # rotate right
+            self.rotate(dt)
+    
+        if keys[pygame.K_d]:
+            # ?
+            self.rotate((-1)*dt)
