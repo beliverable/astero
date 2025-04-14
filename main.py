@@ -4,6 +4,8 @@ environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 import pygame
 from constants import *
 from player import Player
+from asteroids import Asteroid
+from asteroidfield import *
 
 def main():
     print("Starting Asteroids!")
@@ -16,14 +18,19 @@ def main():
     dt = 0
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
-    pl = Player(x,y)
-
+    
     # game's groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
 
-    pl.containers = (updatable, drawable)
+    asteroids = pygame.sprite.Group()
 
+    Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable,drawable)
+    AsteroidField.containers = (updatable)
+
+    pl = Player(x,y)
+    astfld = AsteroidField()
 
     # infinite loop
     while True:
@@ -35,7 +42,7 @@ def main():
         updatable.update(dt)
 
         screen.fill("black")
-        
+
         #pl.draw(screen)
         for obj in drawable:
             obj.draw(screen)
