@@ -1,5 +1,5 @@
 import pygame
-from constants import PLAYER_RADIUS
+from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED
 from circleshape import CircleShape
 
 class Player(CircleShape):
@@ -21,5 +21,10 @@ class Player(CircleShape):
         b = self.position - forward * self.radius - right
         c = self.position - forward * self.radius + right
         return [a, b, c]    
+    
+    # rotate
+    def rotate(self, dt):
+        self.dt = dt
+        return self.rotation + PLAYER_TURN_SPEED * self.dt
     
    
