@@ -46,6 +46,7 @@ def main():
 
         #pl.update(dt)
         updatable.update(dt)
+        
         for asteroid in asteroids:
             if asteroid.collides_with(pl):
                 print("Game over!")
@@ -54,7 +55,7 @@ def main():
         for shot in shots:
             if asteroid.collides_with(shot):
                 shot.kill()
-                asteroid.kill()
+                asteroid.split()
 
         screen.fill("black")
 
