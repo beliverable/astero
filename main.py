@@ -1,12 +1,9 @@
-# this allows us to use code from
-# the open-source pygame library
-# throughout this file
 from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
 import pygame
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, ASTEROID_MIN_RADIUS, ASTEROID_KINDS, ASTEROID_SPAWN_RATE, ASTEROID_MAX_RADIUS 
+from constants import *
 
 def main():
     print("Starting Asteroids!")
@@ -15,6 +12,11 @@ def main():
     
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ceas = pygame.time.Clock()
+    dt = 0
+    x = SCREEN_WIDTH / 2
+    y = SCREEN_HEIGHT / 2
+    pl = Player(x,y)
 
     # infinite loop
     while True:
@@ -22,7 +24,9 @@ def main():
             if event.type == pygame.QUIT:
                 return
         screen.fill("black")
+        pl.draw(screen)
         pygame.display.flip()
+        dt = ceas.tick(60)/1000
 
 if __name__ == "__main__":
     main()
