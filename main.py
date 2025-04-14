@@ -1,3 +1,4 @@
+import sys
 from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
@@ -5,7 +6,7 @@ import pygame
 from constants import *
 from player import Player
 from asteroids import Asteroid
-from asteroidfield import *
+from asteroidfield import AsteroidField
 
 def main():
     print("Starting Asteroids!")
@@ -22,12 +23,11 @@ def main():
     # game's groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
-
     asteroids = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable,drawable)
-    AsteroidField.containers = (updatable)
+    AsteroidField.containers = updatable
 
     pl = Player(x,y)
     astfld = AsteroidField()
@@ -40,6 +40,10 @@ def main():
 
         #pl.update(dt)
         updatable.update(dt)
+        for asteroid in asteroids:
+            if asteroid.collides_with(pl):
+                print("Game over!")
+                sys.exit()
 
         screen.fill("black")
 
