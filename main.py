@@ -18,19 +18,31 @@ def main():
     y = SCREEN_HEIGHT / 2
     pl = Player(x,y)
 
+    # game's groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    pl.containers = (updatable, drawable)
+
+
     # infinite loop
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
 
-        pl.update(dt)
+        #pl.update(dt)
+        updatable.update(dt)
 
         screen.fill("black")
-        pl.draw(screen)
+        
+        #pl.draw(screen)
+        for obj in drawable:
+            obj.draw(screen)
+
 
         pygame.display.flip()
-        
+
         dt = ceas.tick(60)/1000
 
 if __name__ == "__main__":
