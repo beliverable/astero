@@ -2,8 +2,8 @@ from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
 import pygame
-
 from constants import *
+from player import Player
 
 def main():
     print("Starting Asteroids!")
@@ -23,10 +23,14 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+
+        pl.update(dt)
+
         screen.fill("black")
         pl.draw(screen)
-        pl.update(dt)
+
         pygame.display.flip()
+        
         dt = ceas.tick(60)/1000
 
 if __name__ == "__main__":

@@ -11,6 +11,7 @@ class Player(CircleShape):
 
  # draw function
     def draw(self, screen):
+        self.screen = screen
         pygame.draw.polygon(self.screen,"white", self.triangle(), width = 2)
 
     # in the player class
@@ -21,19 +22,19 @@ class Player(CircleShape):
         b = self.position - forward * self.radius - right
         c = self.position - forward * self.radius + right
         return [a, b, c]    
-    
-    # rotate
-    def rotate(self, dt):
-        self.dt = dt
-        self.rotation + PLAYER_TURN_SPEED * self.dt
-    
+
     def update(self, dt):
         keys = pygame.key.get_pressed()
         
         if keys[pygame.K_a]:
             # rotate right
-            self.rotate(dt)
+            self.rotate(-dt)
     
         if keys[pygame.K_d]:
             # ?
-            self.rotate((-1)*dt)
+            self.rotate(dt)
+
+    # rotate
+    def rotate(self, dt):
+        self.dt = dt
+        self.rotation + PLAYER_TURN_SPEED * self.dt
